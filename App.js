@@ -6,6 +6,7 @@ import { HomeScreen } from './src/screens/home';
 import { Provider } from './src/context/blog';
 import { ShowScreen } from './src/screens/blog';
 import { CreateScreen } from './src/screens/blog';
+import { EditScreen } from './src/screens/blog';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,14 @@ function App() {
           headerTitleAlign: "center"
         })}
       />
+      <Stack.Screen
+        name="Edit"
+        component={EditScreen}
+        options={() => ({
+          title: 'RN Blogs',
+          headerTitleAlign: "center"
+        })}
+      />
     </Stack.Navigator>
   </NavigationContainer> 
 }
@@ -43,5 +52,6 @@ export default function() {
 }
 
 const defaultScreenOptions = {
-  
+  title: 'RN Blogs',
+  headerTitleAlign: "center"
 }

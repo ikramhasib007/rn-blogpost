@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity } from 'react-native';
 import { Context } from '../../context/blog';
 import Feather from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function HomeScreen({ navigation, route }) {
-  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
+  const { state, deleteBlogPost } = useContext(Context);
 
 
   React.useLayoutEffect(() => {
@@ -13,19 +12,12 @@ export default function HomeScreen({ navigation, route }) {
       headerTitle: 'RN Blogs',
       headerTitleAlign: "center",
       headerRight: () => <TouchableOpacity onPress={() => navigation.navigate("Create")}>
-        <Ionicons name="md-create" size={16} style={{marginRight: 15}} />
+        <Feather name="plus" size={25} style={{marginRight: 15}} />
       </TouchableOpacity>
     }) 
   })
 
   return <View>
-    <Button
-      title="Add Post"
-      onPress={() => addBlogPost({
-        id: Math.floor(Math.random() * 99999),
-        title: `BlogPost #${state.length + 1}`
-      })}
-    />
     <FlatList
       data={state}
       keyExtractor={(elem) => `idss${elem.id}`}
