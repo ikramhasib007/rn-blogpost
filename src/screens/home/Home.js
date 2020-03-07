@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity } from 'reac
 import { Context } from '../../context/blog';
 import Feather from 'react-native-vector-icons/Feather';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation, route }) {
   const { state, addBlogPost, deleteBlogPost } = useContext(Context);
 
   return <View>
     <Button
-      title="Add BlogPost"
+      title="Add Post"
       onPress={() => addBlogPost({
         id: Math.floor(Math.random() * 99999),
         title: `BlogPost #${state.length + 1}`
@@ -16,17 +16,21 @@ export default function HomeScreen() {
     />
     <FlatList
       data={state}
-      keyExtractor={(elem) => elem.title}
+      keyExtractor={(elem) => `idss${elem.id}`}
       renderItem={({item}) => {
-        return <View style={styles.row}>
-          <Text>{item.title}</Text>
-          <TouchableOpacity
-            onPress={() => deleteBlogPost(item.id)}
-            activeOpacity={0.8}
-          >
-            <Feather name="trash" size={16} />
+        return (
+          <TouchableOpacity onPress={() => navigation.navigate("Show", { id: item.id })} >
+            <View style={styles.row}>
+              <Text>{item.title}</Text>
+              <TouchableOpacity
+                onPress={() => deleteBlogPost(item.id)}
+                activeOpacity={0.5}
+              >
+                <Feather name="trash" size={16} />
+              </TouchableOpacity>
+            </View>
           </TouchableOpacity>
-        </View>
+        ) 
       }}
     />
   </View>
