@@ -14,7 +14,8 @@ function App() {
         name="Home"
         component={HomeScreen}
         options={() => ({
-          title: 'RN BlogPost'
+          title: 'RN Blogs',
+          headerTitleAlign: "center"
         })}
       />
     </Stack.Navigator>
