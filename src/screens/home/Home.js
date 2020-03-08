@@ -1,13 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useLayoutEffect, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity } from 'react-native';
 import { Context } from '../../context/blog';
 import Feather from 'react-native-vector-icons/Feather';
 
 export default function HomeScreen({ navigation, route }) {
-  const { state, deleteBlogPost } = useContext(Context);
+  const { state, deleteBlogPost, getBlogPosts } = useContext(Context);
+  
+  
+    useEffect(() => {
+      getBlogPosts();
+      const unsubscribe = navigation.addListener('focus', () => {
+        // The screen is focused
+        // Call any action
+        getBlogPosts();
+      });
+      return unsubscribe;
+    }, [navigation])
 
-
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: 'RN Blogs',
       headerTitleAlign: "center",
@@ -15,7 +25,7 @@ export default function HomeScreen({ navigation, route }) {
         <Feather name="plus" size={25} style={{marginRight: 15}} />
       </TouchableOpacity>
     }) 
-  })
+  }, [navigation])
 
   return <View>
     <FlatList

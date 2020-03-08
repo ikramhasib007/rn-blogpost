@@ -30,7 +30,7 @@ export default function BlogPostForm({ onSubmit, initialValues }) {
       />
       <View style={{marginHorizontal: 10, marginTop: 10}}>
         <Button
-          title={`${!initialValues.title ? "Add Blog Post" : "Save Blog Post" }`}          
+          title="Save Blog Post"          
           onPress={() => onSubmit(title, content)}
         />
       </View>
