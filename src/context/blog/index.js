@@ -5,14 +5,6 @@ const blogReducer = (state, action) => {
   switch(action.type) {
     case 'GET_BLOGPOSTS':
       return action.payload;
-    case 'ADD_BLOGPOST': 
-      return [
-        {
-          id: Math.floor(Math.random() * 99999),
-          ...action.payload
-        },
-        ...state
-      ];
     case 'EDIT_BLOGPOST': 
       return state.map((item) => item.id === action.payload.id ? action.payload : item);
     case 'DELETE_BLOGPOST': 
@@ -45,10 +37,10 @@ const editBlogPost = dispatch => {
 };
 
 const deleteBlogPost = dispatch => {
-  return (payload) => dispatch({
-    type: 'DELETE_BLOGPOST',
-    payload
-  })
+  return async (payload) => {
+    await jsonServer.delete(`/blogposts/${payload}`);
+    dispatch({ type: 'DELETE_BLOGPOST', payload })
+  }
 }
 
 export const { Context, Provider } = createDataContext(
